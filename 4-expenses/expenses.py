@@ -18,8 +18,11 @@ if "руб" in user_summ:
     user_summ = user_summ.replace(" ", "")
     user_summ = user_summ.replace(" ", "")
 
-if not user_summ.isdigit():
+# Допускаем "159" или "100.10" — цифры и не больше одной точки
+rub, kop = user_summ.split(".")
+if not rub.isdigit() or not kop.isdigit():
     print("Некорректный формат суммы")
     exit(1)
 
-print(f"{float(user_summ):,.2f} ₽")
+
+print(f"{int(rub) + int(kop) / 100:.2f10} ₽")
