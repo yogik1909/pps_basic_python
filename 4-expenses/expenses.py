@@ -12,17 +12,19 @@
 user_summ = input("Введите сумму: ").lower().strip()
 
 if "руб" in user_summ:
-    user_summ = user_summ.replace("руб", "." if "коп" in user_summ else "")
-    user_summ = user_summ.replace(" ", "")
-    user_summ = user_summ.replace("коп", "")
-    user_summ = user_summ.replace(" ", "")
-    user_summ = user_summ.replace(" ", "")
+    rub, kop = user_summ.split("руб")
+else:
+    rub = user_summ
+    kop = "0"
 
-# Допускаем "159" или "100.10" — цифры и не больше одной точки
-rub, kop = user_summ.split(".")
-if not rub.isdigit() or not kop.isdigit():
+
+if "коп" in kop:
+    kop = kop.split("коп")[0].strip()
+
+
+if not rub.strip().isdigit() or not kop.strip().isdigit():
     print("Некорректный формат суммы")
     exit(1)
 
 
-print(f"{int(rub) + int(kop) / 100:.2f10} ₽")
+print(f"{int(rub) + int(kop) / 100:.2f} ₽")
