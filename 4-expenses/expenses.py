@@ -1,10 +1,25 @@
-# Создать список из трат за неделю(7 чисел)
-# Посчитать сумму, среднее, минимум и максимум.
-# Сохранить в кортеже(минимум, максимум, сумма) и вывести его.
-list_of_expenses = [100, 200, 300, 400, 500, 600, 700]
-min_expense = min(list_of_expenses)
-max_expense = max(list_of_expenses)
-sum_of_expenses = sum(list_of_expenses)
-average_expense = sum_of_expenses / len(list_of_expenses)
-result = (min_expense, max_expense, sum_of_expenses)
-print(result)
+# Принять строку формата "<руб> руб <коп> коп" (пример: 100 руб 10
+#                                               коп) и вывести нормализованную сумму в рублях с двумя знаками
+# после запятой: 100.10 ₽.
+# Поддержать варианты без копеек("159 руб" → "159.00 ₽").
+# - Программа читает одну строку из input()
+# - Регистр и лишние пробелы игнорируются
+# - Допустимые слова для единиц
+# - На выходе — сумма в виде X.YY ₽(два знака после запятой)
+# - Если формат некорректный — вывести:
+# Некорректный формат суммы
+
+user_summ = input("Введите сумму: ").lower().strip()
+
+if "руб" in user_summ:
+    user_summ = user_summ.replace("руб", "." if "коп" in user_summ else "")
+    user_summ = user_summ.replace(" ", "")
+    user_summ = user_summ.replace("коп", "")
+    user_summ = user_summ.replace(" ", "")
+    user_summ = user_summ.replace(" ", "")
+
+if not user_summ.isdigit():
+    print("Некорректный формат суммы")
+    exit(1)
+
+print(f"{float(user_summ):,.2f} ₽")
