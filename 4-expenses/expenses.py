@@ -20,4 +20,5 @@ while True:
         case "5":
             exit()
         case _:
+            print("\033[H\033[J", end="")
             continue
