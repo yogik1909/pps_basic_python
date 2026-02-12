@@ -4,14 +4,14 @@ expenses = []
 def add_expense(expenses: list[float], value: float):
     expenses.append(value)
 
-def delete_expence(expenses: float, index: int):
-    expenses.pop(index)
+def delete_expence(expenses: float, index: int) -> float | None: 
+    return expenses.pop(index) if len(expenses) > index else None
 
 def get_total(expenses: list[float]):
     return sum(expenses)
     
 def get_average(expenses: list[float]):
-    return sum(expenses) / len(expenses)
+    return sum(expenses) / len(expenses) if len(expenses) != 0 else 0
 
 def print_report(expenses: list[float]):
     print(expenses)
@@ -40,8 +40,11 @@ while True:
         case "4":
             # 4. Удалить расход по номеру
             index = int(input("Введите номер расхода: "))
-            delete_expence(expenses, index)
-            print("Расход на сумму {value} удален")
+            value = delete_expence(expenses, index)
+            if value is not None:
+                print(f"Расход на сумму {value} удален")
+            else:
+                print("Расхода с таким номером нет")
         case "5":
             exit()
         case _:
